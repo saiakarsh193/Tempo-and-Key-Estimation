@@ -9,7 +9,7 @@ We are implementing axis-aligned directional CNNs for estimating tempo and key. 
 ## Datasets chosen
 - [Extended Ballroom](http://anasynth.ircam.fr/home/media/ExtendedBallroom) for Tempo Estimation Training
 - [Ballroom](http://mtg.upf.edu/ismir2004/contest/tempoContest/node5.html) for Tempo Estimation Testing
-- [Abc]() for Key Estimation
+- [Gainsteps](https://github.com/GiantSteps/giantsteps-key-dataset) for Key Estimation
 
 ## References
 - Link to [paper](https://arxiv.org/pdf/1903.10839.pdf)

@@ -9,12 +9,13 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 from models.shallowtempo import ShallowTempo
+from models.shallowkey import ShallowKey
 from models.deepsquare import DeepSquare
 
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("model", help="name of model to use for training", type=str, choices=["deep_tempo", "shallow_tempo"])
+parser.add_argument("model", help="name of model to use for training", type=str, choices=["deep_tempo", "shallow_tempo", "shallow_tempo_control"])
 parser.add_argument("epoch", help="number of epochs to train", type=int)
 parser.add_argument("-l", "--learning_rate", help="learning rate for training", default=0.001, type=float)
 parser.add_argument("-k", "--filter_size", help="size of the directional filter", default=12, type=int)
@@ -83,6 +84,8 @@ if(args.model == "shallow_tempo"):
     model = ShallowTempo((1, 40, 256), 256, k, pD).to(device)  
 elif(args.model == "deep_tempo"):
     model = DeepSquare((1, 40, 256), 256, k, pD).to(device)
+elif(args.model == "shallow_tempo_control"):
+    model = ShallowKey((1, 40, 256), 256, k, pD).to(device)
 loss_function = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 

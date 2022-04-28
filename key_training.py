@@ -6,7 +6,8 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-from shallowkey import ShallowKey
+
+from models.shallowkey import ShallowKey
 
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")

@@ -5,7 +5,16 @@ import os
 import pandas as pd
 import numpy as np
 
-from shallowtempo import ShallowTempo
+from models.shallowtempo import ShallowTempo
+from models.deepsquare import DeepSquare
+
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("model", help="name of model to use for training", type=str, choices=["deep_tempo", "shallow_tempo"])
+parser.add_argument("-k", "--filter_size", help="size of the directional filter", default=12, type=int)
+parser.add_argument("-p", "--drop_prob", help="dropout probability", default=0.25, type=float)
+args = parser.parse_args()
 
 """# Dataset download and processing"""
 
@@ -56,14 +65,16 @@ test_dataloader = DataLoader(TempoDataset(xTotal, yTotal), batch_size = 16, shuf
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print(f'Testing the model on: {device}' + (f' ({torch.cuda.get_device_name(0)})' if torch.cuda.is_available() else ''))
 
-k =  12 #@param {type: "integer"}
-pD = 0.25 #@param {type: "number"}
+k =  args.filter_size
+pD = args.drop_prob
 
 
 """# Loading the model"""
-
-loaded_model = ShallowTempo((1, 40, 256), 256, k, pD).to(device)
-loaded_model.load_state_dict(torch.load('Models/tempo_model.pt', map_location=device))
+if(args.model == "shallow_tempo"):
+    loaded_model = ShallowTempo((1, 40, 256), 256, k, pD).to(device)  
+elif(args.model == "deep_tempo"):
+    loaded_model = DeepSquare((1, 40, 256), 256, k, pD).to(device)
+loaded_model.load_state_dict(torch.load(f'trained_models/{args.model}_model.pt', map_location=device))
 
 """# Testing"""
 
@@ -81,5 +92,5 @@ with torch.no_grad():
                 correct_cases += 1
             total_cases += 1
 
-print(f'Accuracy of model on testing dataset: {correct_cases / total_cases}')
+print(f'Accuracy of {args.model} model on Ballroom dataset: {correct_cases / total_cases}')
 

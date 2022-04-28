@@ -18,11 +18,11 @@ Report of our project can be found [here](https://docs.google.com/presentation/d
 |         Model         | Accuracy (%)  |
 |:---------------------:|:-------------:|
 |     shallow_tempo     |     82.80     |
-|      shallow_key      |               |
+|      shallow_key      |     42.14     |
 | shallow_tempo_control |     49.57     |
-|  shallow_key_control  |               |
+|  shallow_key_control  |     07.53     |
 |       deep_tempo      |     85.53     |
-|        deep_key       |               |
+|        deep_key       |     48.10     |
 
 ## References
 - Link to [paper](https://arxiv.org/pdf/1903.10839.pdf)

@@ -1,8 +1,6 @@
 import torch
-import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import tqdm
-import os
 import pickle as pkl
 import pandas as pd
 import numpy as np
@@ -106,5 +104,17 @@ plt.plot(valid_loss_values, c = 'red', label = 'validation loss')
 plt.title('Training Progress')
 plt.legend()
 plt.show()
+
+correct_cases = 0
+total_cases = 0
+model.eval()
+with torch.no_grad():
+    for datap in validation_dataloader:
+        datap[0] = torch.permute(datap[0], (0, 3, 1, 2))
+        out = model(datap[0].to(device))
+        oclass = torch.argmax(out, dim=1)
+        correct_cases += (oclass == datap[1].to(device)).sum().item()
+        total_cases += oclass.shape[0]
+print(f'Accuracy of model: {correct_cases / total_cases}')
 
 torch.save(model.state_dict(), 'Models/key_model.pt')

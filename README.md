@@ -13,6 +13,17 @@ Report of our project can be found [here](https://docs.google.com/presentation/d
 - [Ballroom](http://mtg.upf.edu/ismir2004/contest/tempoContest/node5.html) for Tempo Estimation Testing
 - [Gainsteps](https://github.com/GiantSteps/giantsteps-key-dataset) for Key Estimation
 
+## Results
+
+|         Model         | Accuracy (%)  |
+|:---------------------:|:-------------:|
+|     shallow_tempo     |     82.80     |
+|      shallow_key      |               |
+| shallow_tempo_control |     49.57     |
+|  shallow_key_control  |               |
+|       deep_tempo      |     85.53     |
+|        deep_key       |               |
+
 ## References
 - Link to [paper](https://arxiv.org/pdf/1903.10839.pdf)
 - Paper implementation GitHub [repository](https://github.com/hendriks73/directional_cnns)
